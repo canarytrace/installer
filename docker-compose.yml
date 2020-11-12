@@ -1,14 +1,14 @@
 version: "3.8"
 services:
   installer:
-    image: quay.io/canarytrace/installer:7.0
+    image: quay.io/canarytrace/installer:7.1
     environment:
-      ELASTIC_ENDPOINT: 'https://1234.eu-central-1.aws.cloud.es.io'
+      ELASTIC_ENDPOINT: 'https://XXX.eu-central-1.aws.cloud.es.io'
       ELASTIC_PORT: 9243
       ELASTIC_INDEX_PREFIX: 'c'
       ELASTIC_USER: 'elastic'
-      ELASTIC_PASS: 'xyz'
-      KIBANA_ENDPOINT: 'https://1234.eu-central-1.aws.cloud.es.io'
+      ELASTIC_PASS: 'XXX'
+      KIBANA_ENDPOINT: 'https://XXX.eu-central-1.aws.cloud.es.io'
       KIBANA_PORT: 9243
       KIBANA_USER: 'elastic'
-      KIBANA_PASS: 'xyz'
+      KIBANA_PASS: 'XXX'
