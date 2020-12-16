@@ -6,7 +6,7 @@
 - Install index patterns
 - Install visualizations
 - Install dashboards
-- Ready for Canarytrace edition smoke, developer and professional
+- Ready for Canarytrace, Canarytrace Smoke Pro
 - Ready for local use
 - Ready for use on elastic.co
 

@@ -71,7 +71,7 @@ if [ "$IS_ELASTIC_LIVE" != 200 ] ; then
 fi
 
 newman run \
-"/etc/postman/Canarytrace_elastic7.x.postman_collection.json" \
+"/etc/postman/Canarytrace_elastic7.2.postman_collection.json" \
 --env-var "elastic.endpoint=${ELASTIC_ENDPOINT}" \
 --env-var "elastic.port=${ELASTIC_PORT}" \
 --env-var "elastic.index.prefix=${ELASTIC_INDEX_PREFIX}" \
