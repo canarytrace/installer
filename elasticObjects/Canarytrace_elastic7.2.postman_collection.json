@@ -637,6 +637,95 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Kibana upload search",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fb9b267c-3c64-4f75-b8aa-d4d0a3f971da",
+						"exec": [
+							"var jsonData = pm.response.json(); ",
+							"pm.test(\"Verify response body | success\", function() {",
+							"    pm.expect(jsonData.success).to.be.true; ",
+							"})",
+							"",
+							"pm.test(\"Verify response code | 200\", function() {",
+							"    pm.expect(responseCode.code).is.to.equal(200);",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"strictSSL": false
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{kibana.pass}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{kibana.user}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "kbn-xsrf",
+						"type": "text",
+						"value": "true"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/etc/postman/kibana-7.2-search.ndjson"
+						}
+					],
+					"options": {
+						"formdata": {}
+					}
+				},
+				"url": {
+					"raw": "{{kibana.endpoint}}:{{kibana.port}}/api/saved_objects/_import?overwrite=true",
+					"host": [
+						"{{kibana.endpoint}}"
+					],
+					"port": "{{kibana.port}}",
+					"path": [
+						"api",
+						"saved_objects",
+						"_import"
+					],
+					"query": [
+						{
+							"key": "overwrite",
+							"value": "true",
+							"description": "(Optional, boolean) Overwrites saved objects when they already exist. When used, potential conflict errors are automatically resolved by overwriting the destination object."
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
