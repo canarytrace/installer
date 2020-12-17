@@ -68,7 +68,7 @@ docker run --name installer --net canary --rm -e ELASTIC_ENDPOINT=http://localho
 
 1). Change part of local URI in exportet postman collection on `/etc/postman`
 
-2). Build image `docker build -t canarytrace/installer:7.1 .`
+2). Build image `docker build -t quay.io/canarytrace/installer:7.2 .`
 
 ## Build k8s on DigitalOcean via Terraform
 > edit this file `/digitalocean/k8s.tf`

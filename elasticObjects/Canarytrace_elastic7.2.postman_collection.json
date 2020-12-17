@@ -436,7 +436,7 @@
 						{
 							"key": "file",
 							"type": "file",
-							"src": "/etc/postman/kibana-7.x-index-patterns.ndjson"
+							"src": "/etc/postman/kibana-7.2-index-patterns.ndjson"
 						}
 					],
 					"options": {
@@ -520,7 +520,7 @@
 						{
 							"key": "file",
 							"type": "file",
-							"src": "/etc/postman/kibana-7.x-visualizations.ndjson"
+							"src": "/etc/postman/kibana-7.2-visualizations.ndjson"
 						}
 					],
 					"options": {
@@ -609,7 +609,7 @@
 						{
 							"key": "file",
 							"type": "file",
-							"src": "/etc/postman/kibana-7.x-dashboards.ndjson"
+							"src": "/etc/postman/kibana-7.2-dashboards.ndjson"
 						}
 					],
 					"options": {
