@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   installer:
-    image: quay.io/canarytrace/installer:7.1
+    image: quay.io/canarytrace/installer:7.2
     environment:
       ELASTIC_ENDPOINT: 'https://XXX.eu-central-1.aws.cloud.es.io'
       ELASTIC_PORT: 9243
