@@ -5,7 +5,7 @@ services:
     environment:
       ELASTIC_ENDPOINT: 'https://XXX.eu-central-1.aws.cloud.es.io'
       ELASTIC_PORT: 9243
-      ELASTIC_INDEX_PREFIX: 'c'
+      ELASTIC_INDEX_PREFIX: 'c.'
       ELASTIC_USER: 'elastic'
       ELASTIC_PASS: 'XXX'
       KIBANA_ENDPOINT: 'https://XXX.eu-central-1.aws.cloud.es.io'

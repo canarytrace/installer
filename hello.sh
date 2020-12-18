@@ -24,7 +24,7 @@ if [[ -z "${ELASTIC_PORT}" ]]; then
     export ELASTIC_PORT=9200
 fi
 if [[ -z "${ELASTIC_INDEX_PREFIX}" ]]; then
-    export ELASTIC_INDEX_PREFIX=c
+    export ELASTIC_INDEX_PREFIX=c.
 fi
 if [[ -z "${KIBANA_ENDPOINT}" ]]; then
     export KIBANA_ENDPOINT=kibana
