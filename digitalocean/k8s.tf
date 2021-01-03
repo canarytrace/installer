@@ -1,6 +1,6 @@
 resource "digitalocean_kubernetes_cluster" "canarytrace" {
 
-  name     = "nakit-erouska"
+  name     = "canarytrace-k8s"
   region   = "fra1"
   version = "1.18.8-do.1"
   node_pool {
@@ -11,6 +11,6 @@ resource "digitalocean_kubernetes_cluster" "canarytrace" {
   tags    = ["canarytrace"]
 
   provisioner "local-exec" {
-    command = "doctl kubernetes cluster kubeconfig save nakit-erouska"
+    command = "doctl kubernetes cluster kubeconfig save canarytrace-k8s"
   }
 }
