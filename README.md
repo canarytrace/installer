@@ -1,7 +1,7 @@
 # Canarytrace installer
 > This installer prepare Elasticsearch and Kibana for Canarytrace use
 
-- For Elasticsearch and Kibana 7.x
+- For Elasticsearch and Kibana 7.x but recommended version is 7.10
 - Dockerized - the docker image tag corresponds to the version of the Elasticsearch for which it is intended 
 - Install index patterns
 - Install visualizations
@@ -19,17 +19,17 @@ docker network create canary
 
 2). Run dockerized Elasticsearch
 ```
-docker run --name elasticsearch --net canary --rm -d -p 9200:9200 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:7.8.1 bin/elasticsearch -Enetwork.host=0.0.0.0
+docker run --name elasticsearch --net canary --rm -d -p 9200:9200 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:7.10.0 bin/elasticsearch -Enetwork.host=0.0.0.0
 ```
 
 3). Run dockerized Kibana 
 ```
-docker run --name kibana --net canary --rm -d -p 5601:5601 docker.elastic.co/kibana/kibana:7.8.1
+docker run --name kibana --net canary --rm -d -p 5601:5601 docker.elastic.co/kibana/kibana:7.10.0
 ```
 
 4). Run Canarytrace installer
 ```
-docker run --name installer --net canary --rm quay.io/canarytrace/installer:7.0
+docker run --name installer --net canary --rm quay.io/canarytrace/installer:7.3
 ```
 
 **Always use the latest docker images**
@@ -39,7 +39,7 @@ docker run --name installer --net canary --rm quay.io/canarytrace/installer:7.0
 > Change Elasticsearch endpoint
 
 ```
-docker run --name installer --net canary --rm -e ELASTIC_ENDPOINT=http://localhost quay.io/canarytrace/installer:7.0
+docker run --name installer --net canary --rm -e ELASTIC_ENDPOINT=http://localhost quay.io/canarytrace/installer:7.3
 ```
 
 **Available configuration / Environment variables**
@@ -68,7 +68,7 @@ docker run --name installer --net canary --rm -e ELASTIC_ENDPOINT=http://localho
 
 1). Change part of local URI in exportet postman collection on `/etc/postman`
 
-2). Build image `docker build -t quay.io/canarytrace/installer:7.2 .`
+2). Build image `docker build -t quay.io/canarytrace/installer:7.3 .`
 
 ## Build k8s on DigitalOcean via Terraform
 > edit this file `/digitalocean/k8s.tf`

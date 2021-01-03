@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "5fdf73f7-a4be-4058-a887-c2e90720364a",
-		"name": "Canarytrace_elastic7.x",
+		"_postman_id": "f15772f4-7921-41da-a028-ec9ab9965175",
+		"name": "Canarytrace_elastic7.2",
 		"description": "Setup requests for Elasticsearch and Kibana",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -12,7 +12,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "311c26f8-0d8f-486a-8613-8057de512607",
+						"id": "e3702353-a719-4c3a-82bd-8e0639545348",
 						"exec": [
 							"var jsonData = pm.response.json(); ",
 							"pm.test(\"Verify response body | acknowledged\", function() {",
@@ -61,20 +61,20 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"index_patterns\": [\"c.report-*\"],\n  \"settings\": {\n    \"number_of_shards\": 2,\n    \"number_of_replicas\": 1,\n    \"index.translog.durability\": \"async\",\n    \"index.refresh_interval\": \"10s\"\n  },\n  \"version\": 2,\n  \"mappings\": {\n    \"properties\": {\n      \"uuid\": {\n        \"type\": \"keyword\"\n      },\n      \"uuidAction\": {\n        \"type\": \"keyword\"\n      },\n      \"title\": {\n        \"type\": \"keyword\"\n      },\n      \"fullTitle\": {\n        \"type\": \"keyword\"\n      },\n      \"parent\": {\n        \"type\": \"keyword\"\n      },\n      \"baseUrl\": {\n        \"type\": \"keyword\"\n      },\n      \"env\": {\n        \"type\": \"keyword\"\n      },\n      \"errMessage\": {\n        \"type\": \"text\",\n        \"fields\": {\n          \"raw\": {\n            \"type\": \"keyword\"\n          }\n        }\n      },\n      \"errType\": {\n        \"type\": \"keyword\"\n      },\n      \"event\": {\n        \"type\": \"keyword\"\n      },\n      \"sequence\": {\n        \"type\": \"short\"\n      },\n      \"passed\": {\n        \"type\": \"boolean\"\n      },\n      \"sessionId\": {\n        \"type\": \"keyword\"\n      },\n      \"spec\": {\n        \"type\": \"keyword\"\n      },\n      \"attachments\": {\n        \"type\": \"keyword\"\n      },\n      \"testStepDuration\": {\n        \"type\": \"long\"\n      },\n      \"totalRunnerDuration\": {\n        \"type\": \"long\"\n      },\n      \"totalTestStepsDuration\": {\n        \"type\": \"long\"\n      },\n      \"timestamp\": {\n        \"type\": \"date\",\n        \"format\": \"dateOptionalTime\"\n      },\n      \"capabilities\": {\n        \"properties\": {\n          \"browserName\": {\n            \"type\": \"keyword\"\n          },\n          \"goog:chromeOptions\": {\n            \"properties\": {\n              \"args\": {\n                \"type\": \"keyword\"\n              }\n            }\n          }\n        }\n      },\n      \"analyzed\": {\n        \"type\": \"boolean\"\n      }\n    }\n  }\n}",
+					"raw": "{\n\t\"index_patterns\": [\"{{elastic.index.prefix}}report-*\"],\n\t\"settings\": {\n\t\t\"number_of_shards\": 2,\n\t\t\"number_of_replicas\": 1,\n\t\t\"index.translog.durability\": \"async\",\n\t\t\"index.refresh_interval\": \"10s\"\n\t},\n\t\"version\": 2,\n\t\"mappings\": {\n\t\t\"properties\": {\n\t\t\t\"uuid\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"uuidAction\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"title\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"fullTitle\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"parent\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"baseUrl\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"errMessage\": {\n\t\t\t\t\"type\": \"text\",\n\t\t\t\t\"fields\": {\n\t\t\t\t\t\"raw\": {\n\t\t\t\t\t\t\"type\": \"keyword\"\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t},\n\t\t\t\"errType\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"event\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"sequence\": {\n\t\t\t\t\"type\": \"short\"\n\t\t\t},\n\t\t\t\"passed\": {\n\t\t\t\t\"type\": \"boolean\"\n\t\t\t},\n\t\t\t\"sessionId\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"spec\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"attachments\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"testStepDuration\": {\n\t\t\t\t\"type\": \"long\"\n\t\t\t},\n\t\t\t\"totalRunnerDuration\": {\n\t\t\t\t\"type\": \"long\"\n\t\t\t},\n\t\t\t\"totalTestStepsDuration\": {\n\t\t\t\t\"type\": \"long\"\n\t\t\t},\n\t\t\t\"timestamp\": {\n\t\t\t\t\"type\": \"date\",\n\t\t\t\t\"format\": \"dateOptionalTime\"\n\t\t\t},\n\t\t\t\"capabilities\": {\n\t\t\t\t\"properties\": {\n\t\t\t\t\t\"browserName\": {\n\t\t\t\t\t\t\"type\": \"keyword\"\n\t\t\t\t\t},\n\t\t\t\t\t\"goog:chromeOptions\": {\n\t\t\t\t\t\t\"properties\": {\n\t\t\t\t\t\t\t\"args\": {\n\t\t\t\t\t\t\t\t\"type\": \"keyword\"\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t},\n\t\t\t\"labels\": {\n\t\t\t\t\"type\": \"text\",\n\t\t\t\t\"fields\": {\n\t\t\t\t\t\"raw\": {\n\t\t\t\t\t\t\"type\": \"keyword\"\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t},\n\t\t\t\"analyzed\": {\n\t\t\t\t\"type\": \"boolean\"\n\t\t\t}\n\t\t}\n\t}\n}",
 					"options": {
 						"raw": {}
 					}
 				},
 				"url": {
-					"raw": "{{elastic.endpoint}}:{{elastic.port}}/_template/{{elastic.index.prefix}}.report",
+					"raw": "{{elastic.endpoint}}:{{elastic.port}}/_template/{{elastic.index.prefix}}report",
 					"host": [
 						"{{elastic.endpoint}}"
 					],
 					"port": "{{elastic.port}}",
 					"path": [
 						"_template",
-						"{{elastic.index.prefix}}.report"
+						"{{elastic.index.prefix}}report"
 					]
 				}
 			},
@@ -86,7 +86,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "1a7a0364-eb43-47fc-a9e4-d5cd5e073093",
+						"id": "d88e05d7-112e-442b-b053-4050b916726a",
 						"exec": [
 							"var jsonData = pm.response.json(); ",
 							"pm.test(\"Verify response body | acknowledged\", function() {",
@@ -135,20 +135,20 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"index_patterns\": [\"c.request-*\"],\n  \"settings\": {\n    \"number_of_shards\": 2,\n    \"number_of_replicas\" : 1,\n    \"index.translog.durability\": \"async\",\n    \"index.refresh_interval\": \"10s\"\n  },\n  \"version\": 1,\n\t\"mappings\": {\n    \"properties\": {\n      \"sequence\": {\n        \"type\": \"short\"\n      },\n      \"context\": {\n        \"type\": \"text\",\n        \"fields\": {\n          \"raw\": {\n            \"type\": \"keyword\"\n          }\n        }\n      },\n      \"env\": {\n        \"type\": \"keyword\"\n      },\n      \"hasPostData\": {\n        \"type\": \"boolean\"\n      },\n      \"headers\": {\n        \"properties\": {}\n      },\n      \"initialPriority\": {\n        \"type\": \"keyword\"\n      },\n      \"method\": {\n        \"type\": \"keyword\"\n      },\n      \"mixedContentType\": {\n        \"type\": \"keyword\"\n      },\n      \"postData\": {\n        \"type\": \"keyword\"\n      },\n      \"referrerPolicy\": {\n        \"type\": \"keyword\"\n      },\n      \"requestId\": {\n        \"type\": \"keyword\"\n      },\n      \"spec\": {\n        \"type\": \"keyword\"\n      },\n      \"timestamp\": {\n        \"type\": \"date\",\n        \"format\": \"dateOptionalTime\"\n      },\n      \"type\": {\n        \"type\": \"keyword\"\n      },\n      \"url\": {\n        \"type\": \"keyword\"\n      },\n      \"uuidAction\": {\n        \"type\": \"keyword\"\n      },\n      \"uuid\": {\n        \"type\": \"keyword\"\n      }\n    }\n\t}\n}\n",
+					"raw": "{\n\t\"index_patterns\": [\"{{elastic.index.prefix}}request-*\"],\n\t\"settings\": {\n\t\t\"number_of_shards\": 2,\n\t\t\"number_of_replicas\": 1,\n\t\t\"index.translog.durability\": \"async\",\n\t\t\"index.refresh_interval\": \"10s\"\n\t},\n\t\"version\": 1,\n\t\"mappings\": {\n\t\t\"properties\": {\n\t\t\t\"sequence\": {\n\t\t\t\t\"type\": \"short\"\n\t\t\t},\n\t\t\t\"context\": {\n\t\t\t\t\"type\": \"text\",\n\t\t\t\t\"fields\": {\n\t\t\t\t\t\"raw\": {\n\t\t\t\t\t\t\"type\": \"keyword\"\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t},\n\t\t\t\"hasPostData\": {\n\t\t\t\t\"type\": \"boolean\"\n\t\t\t},\n\t\t\t\"headers\": {\n\t\t\t\t\"properties\": {}\n\t\t\t},\n\t\t\t\"initialPriority\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"method\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"mixedContentType\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"postData\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"referrerPolicy\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"requestId\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"spec\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"timestamp\": {\n\t\t\t\t\"type\": \"date\",\n\t\t\t\t\"format\": \"dateOptionalTime\"\n\t\t\t},\n\t\t\t\"type\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"url\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"uuidAction\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"uuid\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"labels\": {\n\t\t\t\t\"type\": \"text\",\n\t\t\t\t\"fields\": {\n\t\t\t\t\t\"raw\": {\n\t\t\t\t\t\t\"type\": \"keyword\"\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n}",
 					"options": {
 						"raw": {}
 					}
 				},
 				"url": {
-					"raw": "{{elastic.endpoint}}:{{elastic.port}}/_template/{{elastic.index.prefix}}.request",
+					"raw": "{{elastic.endpoint}}:{{elastic.port}}/_template/{{elastic.index.prefix}}request",
 					"host": [
 						"{{elastic.endpoint}}"
 					],
 					"port": "{{elastic.port}}",
 					"path": [
 						"_template",
-						"{{elastic.index.prefix}}.request"
+						"{{elastic.index.prefix}}request"
 					]
 				}
 			},
@@ -160,7 +160,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "8b16e265-3993-4083-8d21-b6cd9e33e316",
+						"id": "2e8df64a-3e2c-4991-8df2-d736e18238be",
 						"exec": [
 							"var jsonData = pm.response.json(); ",
 							"pm.test(\"Verify response body | acknowledged\", function() {",
@@ -209,20 +209,20 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"index_patterns\": [\"c.response-*\"],\n  \"settings\": {\n    \"number_of_shards\": 2,\n    \"number_of_replicas\" : 1,\n    \"index.translog.durability\": \"async\",\n    \"index.refresh_interval\": \"10s\"\n  },\n  \"version\": 1,\n\t\"mappings\": {\n    \"properties\": {\n      \"sequence\": {\n        \"type\": \"short\"\n      },\n      \"type\": {\n        \"type\": \"keyword\"\n      },\n      \"requestId\": {\n        \"type\": \"keyword\"\n      },\n      \"timestamp\": {\n        \"type\": \"date\",\n        \"format\": \"dateOptionalTime\"\n      },\n      \"headers\": {\n        \"properties\": {\n          \"url\": {\n            \"type\": \"keyword\"\n          },\n          \"status\": {\n            \"type\": \"keyword\"\n          },\n          \"statusText\": {\n            \"type\": \"keyword\"\n          },\n          \"headers\": {\n            \"properties\": {}\n          }\n        }\n      },\n      \"requestHeaders\": {\n        \"properties\": {}\n      },\n      \"mimeType\": {\n        \"type\": \"keyword\"\n      },\n      \"connectionReused\": {\n        \"type\": \"boolean\"\n      },\n      \"connectionId\": {\n        \"type\": \"short\"\n      },\n      \"remoteIPAddress\": {\n        \"type\": \"keyword\"\n      },\n      \"remotePort\": {\n        \"type\": \"short\"\n      },\n      \"fromDiskCache\": {\n        \"type\": \"boolean\"\n      },\n      \"fromServiceWorker\": {\n        \"type\": \"boolean\"\n      },\n      \"encodedDataLength\": {\n        \"type\": \"long\"\n      },\n      \"timing\": {\n        \"properties\": {\n          \"connectEnd\" : {\n            \"type\" : \"float\"\n          },\n          \"connectStart\" : {\n            \"type\" : \"float\"\n          },\n          \"dnsEnd\" : {\n            \"type\" : \"float\"\n          },\n          \"dnsStart\" : {\n            \"type\" : \"float\"\n          },\n          \"proxyEnd\" : {\n            \"type\" : \"float\"\n          },\n          \"proxyStart\" : {\n            \"type\" : \"float\"\n          },\n          \"pushEnd\" : {\n            \"type\" : \"float\"\n          },\n          \"pushStart\" : {\n            \"type\" : \"float\"\n          },\n          \"receiveHeadersEnd\" : {\n            \"type\" : \"float\"\n          },\n          \"requestTime\" : {\n            \"type\" : \"float\"\n          },\n          \"sendEnd\" : {\n            \"type\" : \"float\"\n          },\n          \"sendStart\" : {\n            \"type\" : \"float\"\n          },\n          \"sslEnd\" : {\n            \"type\" : \"float\"\n          },\n          \"sslStart\" : {\n            \"type\" : \"float\"\n          },\n          \"workerReady\" : {\n            \"type\" : \"float\"\n          },\n          \"workerStart\" : {\n            \"type\" : \"float\"\n          }\n        }\n      },\n      \"env\": {\n        \"type\": \"keyword\"\n      },\n      \"spec\": {\n        \"type\": \"keyword\"\n      },\n      \"context\": {\n        \"type\": \"text\",\n        \"fields\": {\n          \"raw\": {\n            \"type\": \"keyword\"\n          }\n        }\n      },\n      \"uuidAction\": {\n        \"type\": \"keyword\"\n      },\n      \"uuid\": {\n        \"type\": \"keyword\"\n      }\n    }\n\t}\n}\n",
+					"raw": "{\n\t\"index_patterns\": [\"{{elastic.index.prefix}}response-*\"],\n\t\"settings\": {\n\t\t\"number_of_shards\": 2,\n\t\t\"number_of_replicas\": 1,\n\t\t\"index.translog.durability\": \"async\",\n\t\t\"index.refresh_interval\": \"10s\"\n\t},\n\t\"version\": 1,\n\t\"mappings\": {\n\t\t\"properties\": {\n\t\t\t\"sequence\": {\n\t\t\t\t\"type\": \"short\"\n\t\t\t},\n\t\t\t\"type\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"requestId\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"timestamp\": {\n\t\t\t\t\"type\": \"date\",\n\t\t\t\t\"format\": \"dateOptionalTime\"\n\t\t\t},\n\t\t\t\"headers\": {\n\t\t\t\t\"properties\": {\n\t\t\t\t\t\"url\": {\n\t\t\t\t\t\t\"type\": \"keyword\"\n\t\t\t\t\t},\n\t\t\t\t\t\"status\": {\n\t\t\t\t\t\t\"type\": \"keyword\"\n\t\t\t\t\t},\n\t\t\t\t\t\"statusText\": {\n\t\t\t\t\t\t\"type\": \"keyword\"\n\t\t\t\t\t},\n\t\t\t\t\t\"headers\": {\n\t\t\t\t\t\t\"properties\": {}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t},\n\t\t\t\"requestHeaders\": {\n\t\t\t\t\"properties\": {}\n\t\t\t},\n\t\t\t\"mimeType\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"connectionReused\": {\n\t\t\t\t\"type\": \"boolean\"\n\t\t\t},\n\t\t\t\"connectionId\": {\n\t\t\t\t\"type\": \"short\"\n\t\t\t},\n\t\t\t\"remoteIPAddress\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"remotePort\": {\n\t\t\t\t\"type\": \"short\"\n\t\t\t},\n\t\t\t\"fromDiskCache\": {\n\t\t\t\t\"type\": \"boolean\"\n\t\t\t},\n\t\t\t\"fromServiceWorker\": {\n\t\t\t\t\"type\": \"boolean\"\n\t\t\t},\n\t\t\t\"encodedDataLength\": {\n\t\t\t\t\"type\": \"long\"\n\t\t\t},\n\t\t\t\"timing\": {\n\t\t\t\t\"properties\": {\n\t\t\t\t\t\"connectEnd\": {\n\t\t\t\t\t\t\"type\": \"float\"\n\t\t\t\t\t},\n\t\t\t\t\t\"connectStart\": {\n\t\t\t\t\t\t\"type\": \"float\"\n\t\t\t\t\t},\n\t\t\t\t\t\"dnsEnd\": {\n\t\t\t\t\t\t\"type\": \"float\"\n\t\t\t\t\t},\n\t\t\t\t\t\"dnsStart\": {\n\t\t\t\t\t\t\"type\": \"float\"\n\t\t\t\t\t},\n\t\t\t\t\t\"proxyEnd\": {\n\t\t\t\t\t\t\"type\": \"float\"\n\t\t\t\t\t},\n\t\t\t\t\t\"proxyStart\": {\n\t\t\t\t\t\t\"type\": \"float\"\n\t\t\t\t\t},\n\t\t\t\t\t\"pushEnd\": {\n\t\t\t\t\t\t\"type\": \"float\"\n\t\t\t\t\t},\n\t\t\t\t\t\"pushStart\": {\n\t\t\t\t\t\t\"type\": \"float\"\n\t\t\t\t\t},\n\t\t\t\t\t\"receiveHeadersEnd\": {\n\t\t\t\t\t\t\"type\": \"float\"\n\t\t\t\t\t},\n\t\t\t\t\t\"requestTime\": {\n\t\t\t\t\t\t\"type\": \"float\"\n\t\t\t\t\t},\n\t\t\t\t\t\"sendEnd\": {\n\t\t\t\t\t\t\"type\": \"float\"\n\t\t\t\t\t},\n\t\t\t\t\t\"sendStart\": {\n\t\t\t\t\t\t\"type\": \"float\"\n\t\t\t\t\t},\n\t\t\t\t\t\"sslEnd\": {\n\t\t\t\t\t\t\"type\": \"float\"\n\t\t\t\t\t},\n\t\t\t\t\t\"sslStart\": {\n\t\t\t\t\t\t\"type\": \"float\"\n\t\t\t\t\t},\n\t\t\t\t\t\"workerReady\": {\n\t\t\t\t\t\t\"type\": \"float\"\n\t\t\t\t\t},\n\t\t\t\t\t\"workerStart\": {\n\t\t\t\t\t\t\"type\": \"float\"\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t},\n\t\t\t\"spec\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"context\": {\n\t\t\t\t\"type\": \"text\",\n\t\t\t\t\"fields\": {\n\t\t\t\t\t\"raw\": {\n\t\t\t\t\t\t\"type\": \"keyword\"\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t},\n\t\t\t\"uuidAction\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"uuid\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"labels\": {\n\t\t\t\t\"type\": \"text\",\n\t\t\t\t\"fields\": {\n\t\t\t\t\t\"raw\": {\n\t\t\t\t\t\t\"type\": \"keyword\"\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n}",
 					"options": {
 						"raw": {}
 					}
 				},
 				"url": {
-					"raw": "{{elastic.endpoint}}:{{elastic.port}}/_template/{{elastic.index.prefix}}.response",
+					"raw": "{{elastic.endpoint}}:{{elastic.port}}/_template/{{elastic.index.prefix}}response",
 					"host": [
 						"{{elastic.endpoint}}"
 					],
 					"port": "{{elastic.port}}",
 					"path": [
 						"_template",
-						"{{elastic.index.prefix}}.response"
+						"{{elastic.index.prefix}}response"
 					]
 				}
 			},
@@ -234,7 +234,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "df9b5836-b931-44c7-8514-7ebc7b0b6225",
+						"id": "537b20fb-cfc6-4b59-84ab-54961e7aa020",
 						"exec": [
 							"var jsonData = pm.response.json(); ",
 							"pm.test(\"Verify response body | acknowledged\", function() {",
@@ -283,94 +283,20 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"index_patterns\": [\"c.performance-entries-*\"],\n  \"settings\": {\n    \"number_of_shards\": 2,\n    \"number_of_replicas\" : 1,\n    \"index.translog.durability\": \"async\",\n    \"index.refresh_interval\": \"10s\"\n  },\n  \"version\": 1,\n\t\"mappings\": {\n\t\t\"properties\": {\n\t\t\t\"connectEnd\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"connectStart\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"decodedBodySize\": {\n\t\t\t\t\"type\": \"integer\"\n\t\t\t},\n\t\t\t\"domComplete\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"domContentLoadedEventEnd\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"domContentLoadedEventStart\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"domInteractive\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"domainLookupEnd\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"domainLookupStart\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"duration\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"encodedBodySize\": {\n\t\t\t\t\"type\": \"integer\"\n\t\t\t},\n\t\"sequence\" : {\n\t\t\"type\" : \"long\"\n\t},\n\t\t\t\"entryType\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"fetchStart\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"initiatorType\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"loadEventEnd\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"loadEventStart\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"name\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"nextHopProtocol\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"redirectCount\": {\n\t\t\t\t\"type\": \"short\"\n\t\t\t},\n\t\t\t\"redirectEnd\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"redirectStart\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"requestStart\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"responseEnd\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"responseStart\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"responseTime\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"ttfb\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"secureConnectionStart\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"startTime\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"toJSON\": {\n\t\t\t\t\"type\": \"object\"\n\t\t\t},\n\t\t\t\"transferSize\": {\n\t\t\t\t\"type\": \"long\"\n\t\t\t},\n\t\t\t\"type\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"unloadEventEnd\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"unloadEventStart\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"workerStart\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\"timestamp\": {\n\t\t\"type\": \"date\"\n\t},\n\t\"uuidAction\": {\n\t\t\"type\": \"text\"\n\t},\n\t\"env\": {\n\t\t\t\"type\": \"keyword\"\n\t\t},\n\t\"spec\": {\n\t\t\t\"type\": \"keyword\"\n\t\t},\n\t\"fullTitle\": {\n\t\t\t\"type\": \"keyword\"\n\t\t}\n\t\t}\n\t}\n}\n",
+					"raw": "{\n\t\"index_patterns\": [\"{{elastic.index.prefix}}performance-entries-*\"],\n\t\"settings\": {\n\t\t\"number_of_shards\": 2,\n\t\t\"number_of_replicas\": 1,\n\t\t\"index.translog.durability\": \"async\",\n\t\t\"index.refresh_interval\": \"10s\"\n\t},\n\t\"version\": 1,\n\t\"mappings\": {\n\t\t\"properties\": {\n\t\t\t\"connectEnd\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"connectStart\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"decodedBodySize\": {\n\t\t\t\t\"type\": \"integer\"\n\t\t\t},\n\t\t\t\"domComplete\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"domContentLoadedEventEnd\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"domContentLoadedEventStart\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"domInteractive\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"domainLookupEnd\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"domainLookupStart\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"duration\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"encodedBodySize\": {\n\t\t\t\t\"type\": \"integer\"\n\t\t\t},\n\t\t\t\"sequence\": {\n\t\t\t\t\"type\": \"long\"\n\t\t\t},\n\t\t\t\"entryType\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"fetchStart\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"initiatorType\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"loadEventEnd\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"loadEventStart\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"name\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"nextHopProtocol\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"redirectCount\": {\n\t\t\t\t\"type\": \"short\"\n\t\t\t},\n\t\t\t\"redirectEnd\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"redirectStart\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"requestStart\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"responseEnd\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"responseStart\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"responseTime\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"ttfb\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"secureConnectionStart\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"startTime\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"toJSON\": {\n\t\t\t\t\"type\": \"object\"\n\t\t\t},\n\t\t\t\"transferSize\": {\n\t\t\t\t\"type\": \"long\"\n\t\t\t},\n\t\t\t\"type\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"unloadEventEnd\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"unloadEventStart\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"workerStart\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"timestamp\": {\n\t\t\t\t\"type\": \"date\"\n\t\t\t},\n\t\t\t\"uuidAction\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n            \"uuid\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"spec\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"fullTitle\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"labels\": {\n\t\t\t\t\"type\": \"text\",\n\t\t\t\t\"fields\": {\n\t\t\t\t\t\"raw\": {\n\t\t\t\t\t\t\"type\": \"keyword\"\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n}",
 					"options": {
 						"raw": {}
 					}
 				},
 				"url": {
-					"raw": "{{elastic.endpoint}}:{{elastic.port}}/_template/{{elastic.index.prefix}}.performance-entries",
+					"raw": "{{elastic.endpoint}}:{{elastic.port}}/_template/{{elastic.index.prefix}}performance-entries",
 					"host": [
 						"{{elastic.endpoint}}"
 					],
 					"port": "{{elastic.port}}",
 					"path": [
 						"_template",
-						"{{elastic.index.prefix}}.performance-entries"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "performance-audit",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "a0dc55ab-4fd1-489e-8933-ab1ce4d0aa92",
-						"exec": [
-							"var jsonData = pm.response.json(); ",
-							"pm.test(\"Verify response body | acknowledged\", function() {",
-							"    pm.expect(jsonData.acknowledged).to.be.true; ",
-							"})",
-							"",
-							"pm.test(\"Verify response code | 200\", function() {",
-							"    pm.expect(responseCode.code).is.to.equal(200);",
-							"})"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"strictSSL": false
-			},
-			"request": {
-				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "username",
-							"value": "{{elastic.user}}",
-							"type": "string"
-						},
-						{
-							"key": "password",
-							"value": "{{elastic.pass}}",
-							"type": "string"
-						},
-						{
-							"key": "showPassword",
-							"value": false,
-							"type": "boolean"
-						}
-					]
-				},
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"index_patterns\": [\"c.performance-audit-*\"],\n  \"settings\": {\n    \"number_of_shards\": 2,\n    \"number_of_replicas\" : 1,\n    \"index.translog.durability\": \"async\",\n    \"index.refresh_interval\": \"10s\"\n  },\n  \"version\": 1,\n\t\"mappings\": {\n    \"properties\": {\n      \"estimatedInputLatency\": {\n        \"type\": \"long\"\n      },\n      \"timeToFirstByte\": {\n        \"type\": \"long\"\n      },\n      \"domContentLoaded\": {\n        \"type\": \"long\"\n      },\n      \"firstVisualChange\": {\n        \"type\": \"long\"\n      },\n      \"firstPaint\": {\n        \"type\": \"long\"\n      },\n      \"firstContentfulPaint\": {\n        \"type\": \"long\"\n      },\n      \"firstMeaningfulPaint\": {\n        \"type\": \"long\"\n      },\n      \"lastVisualChange\": {\n        \"type\": \"long\"\n      },\n      \"firstCPUIdle\": {\n        \"type\": \"long\"\n      },\n      \"firstInteractive\": {\n        \"type\": \"long\"\n      },\n      \"load\": {\n        \"type\": \"long\"\n      },\n      \"speedIndex\": {\n        \"type\": \"long\"\n      },\n      \"numRequests\": {\n        \"type\": \"short\"\n      },\n      \"numScripts\": {\n        \"type\": \"short\"\n      },\n      \"numStylesheets\": {\n        \"type\": \"short\"\n      },\n      \"numFonts\": {\n        \"type\": \"short\"\n      },\n      \"numTasks\": {\n        \"type\": \"long\"\n      },\n      \"numTasksOver10ms\": {\n        \"type\": \"short\"\n      },\n      \"numTasksOver25ms\": {\n        \"type\": \"short\"\n      },\n      \"numTasksOver50ms\": {\n        \"type\": \"short\"\n      },\n      \"numTasksOver100ms\": {\n        \"type\": \"long\"\n      },\n      \"numTasksOver500ms\": {\n        \"type\": \"long\"\n      },\n      \"rtt\": {\n        \"type\": \"long\"\n      },\n      \"throughput\": {\n        \"type\": \"long\"\n      },\n      \"maxRtt\": {\n        \"type\": \"long\"\n      },\n      \"maxServerLatency\": {\n        \"type\": \"long\"\n      },\n      \"totalByteWeight\": {\n        \"type\": \"long\"\n      },\n      \"totalTaskTime\": {\n        \"type\": \"long\"\n      },\n      \"mainDocumentTransferSize\": {\n        \"type\": \"long\"\n      },\n      \"performanceScore\": {\n        \"type\": \"long\"\n      },\n      \"env\": {\n        \"type\": \"keyword\"\n      },\n      \"spec\": {\n        \"type\": \"keyword\"\n      },\n      \"testStep\": {\n        \"type\": \"text\",\n        \"fields\": {\n          \"raw\": {\n            \"type\": \"keyword\"\n          }\n        }\n      },\n      \"timestamp\": {\n        \"type\": \"date\",\n        \"format\": \"dateOptionalTime\"\n      },\n      \"uuidAction\": {\n        \"type\": \"keyword\"\n      },\n      \"uuid\": {\n        \"type\": \"keyword\"\n      },\n      \"garbageCollection\": {\n        \"type\": \"long\"\n      },\n      \"other\": {\n        \"type\": \"long\"\n      },\n      \"paintCompositeRender\": {\n        \"type\": \"long\"\n      },\n      \"parseHTML\": {\n        \"type\": \"long\"\n      },\n      \"scriptEvaluation\": {\n        \"type\": \"long\"\n      },\n      \"scriptParseCompile\": {\n        \"type\": \"long\"\n      },\n      \"styleLayout\": {\n        \"type\": \"long\"\n      }\n    }\n  }\n}\n",
-					"options": {
-						"raw": {}
-					}
-				},
-				"url": {
-					"raw": "{{elastic.endpoint}}:{{elastic.port}}/_template/{{elastic.index.prefix}}.performance-audit",
-					"host": [
-						"{{elastic.endpoint}}"
-					],
-					"port": "{{elastic.port}}",
-					"path": [
-						"_template",
-						"{{elastic.index.prefix}}.performance-audit"
+						"{{elastic.index.prefix}}performance-entries"
 					]
 				}
 			},
@@ -382,7 +308,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "e9277b2f-90d0-4c82-9119-9b9669a61904",
+						"id": "d2764740-f16a-4a75-b4db-047a2e56faf6",
 						"exec": [
 							"var jsonData = pm.response.json(); ",
 							"pm.test(\"Verify response body | acknowledged\", function() {",
@@ -431,20 +357,20 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"index_patterns\": [\"c.coverage-audit-*\"],\n  \"settings\": {\n    \"number_of_shards\": 2,\n    \"number_of_replicas\" : 1,\n    \"index.translog.durability\": \"async\",\n    \"index.refresh_interval\": \"10s\"\n  },\n  \"version\": 1,\n\t\"mappings\": {\n    \"properties\": {\n      \"url\": {\n        \"type\": \"text\",\n        \"fields\": {\n          \"raw\": {\n            \"type\": \"keyword\"\n          }\n        }\n      },\n      \"total\": {\n        \"type\": \"long\"\n      },\n      \"unused\": {\n        \"type\": \"long\"\n      },\n      \"percentUnused\": {\n        \"type\": \"short\"\n      },\n      \"env\": {\n        \"type\": \"keyword\"\n      },\n      \"spec\": {\n        \"type\": \"keyword\"\n      },\n      \"testStep\": {\n        \"type\": \"text\",\n        \"fields\": {\n          \"raw\": {\n            \"type\": \"keyword\"\n          }\n        }\n      },\n      \"timestamp\": {\n        \"type\": \"date\",\n        \"format\": \"dateOptionalTime\"\n      },\n      \"uuidAction\": {\n        \"type\": \"keyword\"\n      },\n      \"uuid\": {\n        \"type\": \"keyword\"\n      }\n    }\n  }\n}\n",
+					"raw": "{\n\t\"index_patterns\": [\"{{elastic.index.prefix}}coverage-audit-*\"],\n\t\"settings\": {\n\t\t\"number_of_shards\": 2,\n\t\t\"number_of_replicas\": 1,\n\t\t\"index.translog.durability\": \"async\",\n\t\t\"index.refresh_interval\": \"10s\"\n\t},\n\t\"version\": 1,\n\t\"mappings\": {\n\t\t\"properties\": {\n\t\t\t\"url\": {\n\t\t\t\t\"type\": \"text\",\n\t\t\t\t\"fields\": {\n\t\t\t\t\t\"raw\": {\n\t\t\t\t\t\t\"type\": \"keyword\"\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t},\n\t\t\t\"total\": {\n\t\t\t\t\"type\": \"long\"\n\t\t\t},\n\t\t\t\"unused\": {\n\t\t\t\t\"type\": \"long\"\n\t\t\t},\n\t\t\t\"percentUnused\": {\n\t\t\t\t\"type\": \"short\"\n\t\t\t},\n\t\t\t\"labels\": {\n\t\t\t\t\"type\": \"text\",\n\t\t\t\t\"fields\": {\n\t\t\t\t\t\"raw\": {\n\t\t\t\t\t\t\"type\": \"keyword\"\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t},\n\t\t\t\"spec\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"testStep\": {\n\t\t\t\t\"type\": \"text\",\n\t\t\t\t\"fields\": {\n\t\t\t\t\t\"raw\": {\n\t\t\t\t\t\t\"type\": \"keyword\"\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t},\n\t\t\t\"timestamp\": {\n\t\t\t\t\"type\": \"date\",\n\t\t\t\t\"format\": \"dateOptionalTime\"\n\t\t\t},\n\t\t\t\"uuidAction\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"uuid\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t}\n\t\t}\n\t}\n}",
 					"options": {
 						"raw": {}
 					}
 				},
 				"url": {
-					"raw": "{{elastic.endpoint}}:{{elastic.port}}/_template/{{elastic.index.prefix}}.coverage-audit",
+					"raw": "{{elastic.endpoint}}:{{elastic.port}}/_template/{{elastic.index.prefix}}coverage-audit",
 					"host": [
 						"{{elastic.endpoint}}"
 					],
 					"port": "{{elastic.port}}",
 					"path": [
 						"_template",
-						"{{elastic.index.prefix}}.coverage-audit"
+						"{{elastic.index.prefix}}coverage-audit"
 					]
 				}
 			},
@@ -456,7 +382,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "f7352be5-ff76-4133-ae7a-12f45a169a2f",
+						"id": "307cfa8a-507a-4db3-89ac-723cc8c32f09",
 						"exec": [
 							"var jsonData = pm.response.json(); ",
 							"pm.test(\"Verify response body | success\", function() {",
@@ -514,9 +440,7 @@
 						}
 					],
 					"options": {
-						"raw": {
-							"language": "json"
-						}
+						"formdata": {}
 					}
 				},
 				"url": {
@@ -547,7 +471,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "97129ee7-117e-49eb-bb61-db586a62ce71",
+						"id": "0f164758-3a7a-407c-b485-2a0866c8cd21",
 						"exec": [
 							"var jsonData = pm.response.json(); ",
 							"pm.test(\"Verify response body | success\", function() {",
@@ -600,9 +524,7 @@
 						}
 					],
 					"options": {
-						"raw": {
-							"language": "json"
-						}
+						"formdata": {}
 					}
 				},
 				"url": {
@@ -633,7 +555,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "03018c96-a3b9-42b3-9784-6f1f7ac7ba21",
+						"id": "c35973fb-cdbe-4299-99ac-4d782b7d8a32",
 						"exec": [
 							"var jsonData = pm.response.json(); ",
 							"pm.test(\"Verify response body | success\", function() {",
@@ -691,9 +613,96 @@
 						}
 					],
 					"options": {
-						"raw": {
-							"language": "json"
+						"formdata": {}
+					}
+				},
+				"url": {
+					"raw": "{{kibana.endpoint}}:{{kibana.port}}/api/saved_objects/_import?overwrite=true",
+					"host": [
+						"{{kibana.endpoint}}"
+					],
+					"port": "{{kibana.port}}",
+					"path": [
+						"api",
+						"saved_objects",
+						"_import"
+					],
+					"query": [
+						{
+							"key": "overwrite",
+							"value": "true",
+							"description": "(Optional, boolean) Overwrites saved objects when they already exist. When used, potential conflict errors are automatically resolved by overwriting the destination object."
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Kibana upload search",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fb9b267c-3c64-4f75-b8aa-d4d0a3f971da",
+						"exec": [
+							"var jsonData = pm.response.json(); ",
+							"pm.test(\"Verify response body | success\", function() {",
+							"    pm.expect(jsonData.success).to.be.true; ",
+							"})",
+							"",
+							"pm.test(\"Verify response code | 200\", function() {",
+							"    pm.expect(responseCode.code).is.to.equal(200);",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"strictSSL": false
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{kibana.pass}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{kibana.user}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "kbn-xsrf",
+						"type": "text",
+						"value": "true"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/etc/postman/kibana-7.x-search.ndjson"
+						}
+					],
+					"options": {
+						"formdata": {}
 					}
 				},
 				"url": {
@@ -723,7 +732,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "84a5b17e-d982-4201-9ae2-51e4dc2b15bb",
+				"id": "d71dcd19-43d8-48f1-aacf-9211b4d01d10",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -733,7 +742,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "ffebef37-7476-4eac-bb35-e366d539df79",
+				"id": "7c8384d5-a2e0-4599-8529-30ddff8179c9",
 				"type": "text/javascript",
 				"exec": [
 					""
