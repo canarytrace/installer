@@ -1,0 +1,645 @@
+{
+	"info": {
+		"_postman_id": "63820a79-22c4-4ab4-8faf-4439cf1cec86",
+		"name": "Canarytrace_elastic7.17.1",
+		"description": "Setup requests for Elasticsearch and Kibana",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "report",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json(); ",
+							"pm.test(\"Verify response body | acknowledged\", function() {",
+							"    pm.expect(jsonData.acknowledged).to.be.true; ",
+							"})",
+							"",
+							"pm.test(\"Verify response code | 200\", function() {",
+							"    pm.expect(responseCode.code).is.to.equal(200);",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"strictSSL": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{elastic.user}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{elastic.pass}}",
+							"type": "string"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"index_patterns\": [\"{{elastic.index.prefix}}report-*\"],\n\t\"settings\": {\n\t\t\"number_of_shards\": 2,\n\t\t\"number_of_replicas\": 1,\n\t\t\"index.translog.durability\": \"async\",\n\t\t\"index.refresh_interval\": \"10s\"\n\t},\n\t\"version\": 2,\n\t\"mappings\": {\n\t\t\"properties\": {\n\t\t\t\"uuid\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"uuidAction\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"title\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"fullTitle\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"parent\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"baseUrl\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"errMessage\": {\n\t\t\t\t\"type\": \"text\",\n\t\t\t\t\"fields\": {\n\t\t\t\t\t\"raw\": {\n\t\t\t\t\t\t\"type\": \"keyword\"\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t},\n\t\t\t\"errType\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"event\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"sequence\": {\n\t\t\t\t\"type\": \"short\"\n\t\t\t},\n\t\t\t\"passed\": {\n\t\t\t\t\"type\": \"boolean\"\n\t\t\t},\n\t\t\t\"sessionId\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"spec\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"attachments\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"testStepDuration\": {\n\t\t\t\t\"type\": \"long\"\n\t\t\t},\n\t\t\t\"totalRunnerDuration\": {\n\t\t\t\t\"type\": \"long\"\n\t\t\t},\n\t\t\t\"totalTestStepsDuration\": {\n\t\t\t\t\"type\": \"long\"\n\t\t\t},\n\t\t\t\"timestamp\": {\n\t\t\t\t\"type\": \"date\",\n\t\t\t\t\"format\": \"dateOptionalTime\"\n\t\t\t},\n\t\t\t\"capabilities\": {\n\t\t\t\t\"properties\": {\n\t\t\t\t\t\"browserName\": {\n\t\t\t\t\t\t\"type\": \"keyword\"\n\t\t\t\t\t},\n\t\t\t\t\t\"goog:chromeOptions\": {\n\t\t\t\t\t\t\"properties\": {\n\t\t\t\t\t\t\t\"args\": {\n\t\t\t\t\t\t\t\t\"type\": \"keyword\"\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t},\n\t\t\t\"labels\": {\n\t\t\t\t\"type\": \"text\",\n\t\t\t\t\"fields\": {\n\t\t\t\t\t\"raw\": {\n\t\t\t\t\t\t\"type\": \"keyword\"\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n}"
+				},
+				"url": {
+					"raw": "{{elastic.endpoint}}:{{elastic.port}}/_template/{{elastic.index.prefix}}report",
+					"host": [
+						"{{elastic.endpoint}}"
+					],
+					"port": "{{elastic.port}}",
+					"path": [
+						"_template",
+						"{{elastic.index.prefix}}report"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "request-log",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json(); ",
+							"pm.test(\"Verify response body | acknowledged\", function() {",
+							"    pm.expect(jsonData.acknowledged).to.be.true; ",
+							"})",
+							"",
+							"pm.test(\"Verify response code | 200\", function() {",
+							"    pm.expect(responseCode.code).is.to.equal(200);",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"strictSSL": false
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{elastic.user}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{elastic.pass}}",
+							"type": "string"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"index_patterns\": [\"{{elastic.index.prefix}}request-log-*\"],\n\t\"settings\": {\n\t\t\"number_of_shards\": 2,\n\t\t\"number_of_replicas\": 1,\n\t\t\"index.translog.durability\": \"async\",\n\t\t\"index.refresh_interval\": \"10s\"\n\t},\n\t\"version\": 2,\n\t\"mappings\": {\n\t\t\"properties\": {\n\t\t\t\"requestId\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"timestamp\": {\n\t\t\t\t\"type\": \"date\",\n\t\t\t\t\"format\": \"dateOptionalTime\"\n\t\t\t},\n\t\t\t\"labels\": {\n\t\t\t\t\"type\": \"text\",\n\t\t\t\t\"fields\": {\n\t\t\t\t\t\"raw\": {\n\t\t\t\t\t\t\"type\": \"keyword\"\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t},\n\t\t\t\"spec\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"context\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"uuidAction\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"uuid\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"sequence\": {\n\t\t\t\t\"type\": \"short\"\n\t\t\t},\n\t\t\t\"url\": {\n\t\t\t\t\"type\": \"text\",\n                \"index\": false,\n\t\t\t\t\"fields\": {\n\t\t\t\t\t\"raw\": {\n\t\t\t\t\t\t\"type\": \"keyword\"\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t},\n\t\t\t\"request\": {\n\t\t\t\t\"properties\": {\n\t\t\t\t\t\"requestId\": {\n\t\t\t\t\t\t\"type\": \"keyword\"\n\t\t\t\t\t},\n\t\t\t\t\t\"timestamp\": {\n\t\t\t\t\t\t\"type\": \"float\"\n\t\t\t\t\t},\n\t\t\t\t\t\"initiator\": {\n\t\t\t\t\t\t\"properties\": {\n\t\t\t\t\t\t\t\"type\": {\n\t\t\t\t\t\t\t\t\"type\": \"keyword\"\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"redirectHasExtraInfo\": {\n\t\t\t\t\t\t\"type\": \"boolean\"\n\t\t\t\t\t},\n\t\t\t\t\t\"type\": {\n\t\t\t\t\t\t\"type\": \"keyword\"\n\t\t\t\t\t},\n\t\t\t\t\t\"method\": {\n\t\t\t\t\t\t\"type\": \"keyword\"\n\t\t\t\t\t},\n\t\t\t\t\t\"headers\": {\n\t\t\t\t\t\t\"type\": \"object\"\n\t\t\t\t\t},\n\t\t\t\t\t\"initialPriority\": {\n\t\t\t\t\t\t\"type\": \"keyword\"\n\t\t\t\t\t},\n\t\t\t\t\t\"isSameSite\": {\n\t\t\t\t\t\t\"type\": \"boolean\"\n\t\t\t\t\t},\n\t\t\t\t\t\"postDataParsed\": {\n\t\t\t\t\t\t\"type\": \"text\"\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t},\n\t\t\t\"response\": {\n\t\t\t\t\"properties\": {\n\t\t\t\t\t\"status\": {\n\t\t\t\t\t\t\"type\": \"keyword\"\n\t\t\t\t\t},\n\t\t\t\t\t\"statusText\": {\n\t\t\t\t\t\t\"type\": \"text\"\n\t\t\t\t\t},\n\t\t\t\t\t\"headers\": {\n\t\t\t\t\t\t\"type\": \"object\"\n\t\t\t\t\t},\n\t\t\t\t\t\"mimeType\": {\n\t\t\t\t\t\t\"type\": \"keyword\"\n\t\t\t\t\t},\n\t\t\t\t\t\"connectionReused\": {\n\t\t\t\t\t\t\"type\": \"boolean\"\n\t\t\t\t\t},\n\t\t\t\t\t\"connectionId\": {\n\t\t\t\t\t\t\"type\": \"float\"\n\t\t\t\t\t},\n\t\t\t\t\t\"remoteIPAddress\": {\n\t\t\t\t\t\t\"type\": \"ip\"\n\t\t\t\t\t},\n\t\t\t\t\t\"remotePort\": {\n\t\t\t\t\t\t\"type\": \"short\"\n\t\t\t\t\t},\n\t\t\t\t\t\"fromDiskCache\": {\n\t\t\t\t\t\t\"type\": \"boolean\"\n\t\t\t\t\t},\n\t\t\t\t\t\"fromServiceWorker\": {\n\t\t\t\t\t\t\"type\": \"boolean\"\n\t\t\t\t\t},\n\t\t\t\t\t\"fromPrefetchCache\": {\n\t\t\t\t\t\t\"type\": \"boolean\"\n\t\t\t\t\t},\n\t\t\t\t\t\"encodedDataLength\": {\n\t\t\t\t\t\t\"type\": \"integer\"\n\t\t\t\t\t},\n\t\t\t\t\t\"timing\": {\n\t\t\t\t\t\t\"type\": \"flattened\"\n\t\t\t\t\t},\n\t\t\t\t\t\"responseTime\": {\n\t\t\t\t\t\t\"type\": \"float\"\n\t\t\t\t\t},\n\t\t\t\t\t\"protocol\": {\n\t\t\t\t\t\t\"type\": \"keyword\"\n\t\t\t\t\t},\n\t\t\t\t\t\"securityState\": {\n\t\t\t\t\t\t\"type\": \"text\"\n\t\t\t\t\t},\n\t\t\t\t\t\"requestId\": {\n\t\t\t\t\t\t\"type\": \"keyword\"\n\t\t\t\t\t},\n\t\t\t\t\t\"timestamp\": {\n\t\t\t\t\t\t\"type\": \"float\"\n\t\t\t\t\t},\n\t\t\t\t\t\"totalEncodedDataLength\": {\n\t\t\t\t\t\t\"type\": \"integer\"\n\t\t\t\t\t},\n\t\t\t\t\t\"shouldReportCorbBlocking\": {\n\t\t\t\t\t\t\"type\": \"boolean\"\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t},\n\t\t\t\"har\": {\n\t\t\t\t\"type\": \"flattened\"\n\t\t\t}\n\t\t}\n\t}\n}"
+				},
+				"url": {
+					"raw": "{{elastic.endpoint}}:{{elastic.port}}/_template/{{elastic.index.prefix}}request-log",
+					"host": [
+						"{{elastic.endpoint}}"
+					],
+					"port": "{{elastic.port}}",
+					"path": [
+						"_template",
+						"{{elastic.index.prefix}}request-log"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "performance-entries",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json(); ",
+							"pm.test(\"Verify response body | acknowledged\", function() {",
+							"    pm.expect(jsonData.acknowledged).to.be.true; ",
+							"})",
+							"",
+							"pm.test(\"Verify response code | 200\", function() {",
+							"    pm.expect(responseCode.code).is.to.equal(200);",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"strictSSL": false
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{elastic.user}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{elastic.pass}}",
+							"type": "string"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"index_patterns\": [\"{{elastic.index.prefix}}performance-entries-*\"],\n\t\"settings\": {\n\t\t\"number_of_shards\": 2,\n\t\t\"number_of_replicas\": 1,\n\t\t\"index.translog.durability\": \"async\",\n\t\t\"index.refresh_interval\": \"10s\"\n\t},\n\t\"version\": 1,\n\t\"mappings\": {\n\t\t\"properties\": {\n\t\t\t\"connectEnd\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"connectStart\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"decodedBodySize\": {\n\t\t\t\t\"type\": \"integer\"\n\t\t\t},\n\t\t\t\"domComplete\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"domContentLoadedEventEnd\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"domContentLoadedEventStart\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"domInteractive\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"domainLookupEnd\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"domainLookupStart\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"duration\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"encodedBodySize\": {\n\t\t\t\t\"type\": \"integer\"\n\t\t\t},\n\t\t\t\"sequence\": {\n\t\t\t\t\"type\": \"long\"\n\t\t\t},\n\t\t\t\"entryType\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"fetchStart\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"initiatorType\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"loadEventEnd\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"loadEventStart\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"name\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"nextHopProtocol\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"redirectCount\": {\n\t\t\t\t\"type\": \"short\"\n\t\t\t},\n\t\t\t\"redirectEnd\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"redirectStart\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"requestStart\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"responseEnd\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"responseStart\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"responseTime\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"ttfb\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"secureConnectionStart\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"startTime\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"toJSON\": {\n\t\t\t\t\"type\": \"object\"\n\t\t\t},\n\t\t\t\"transferSize\": {\n\t\t\t\t\"type\": \"long\"\n\t\t\t},\n\t\t\t\"type\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"unloadEventEnd\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"unloadEventStart\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"workerStart\": {\n\t\t\t\t\"type\": \"float\"\n\t\t\t},\n\t\t\t\"timestamp\": {\n\t\t\t\t\"type\": \"date\"\n\t\t\t},\n\t\t\t\"uuidAction\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n            \"uuid\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"spec\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"fullTitle\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"labels\": {\n\t\t\t\t\"type\": \"text\",\n\t\t\t\t\"fields\": {\n\t\t\t\t\t\"raw\": {\n\t\t\t\t\t\t\"type\": \"keyword\"\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n}"
+				},
+				"url": {
+					"raw": "{{elastic.endpoint}}:{{elastic.port}}/_template/{{elastic.index.prefix}}performance-entries",
+					"host": [
+						"{{elastic.endpoint}}"
+					],
+					"port": "{{elastic.port}}",
+					"path": [
+						"_template",
+						"{{elastic.index.prefix}}performance-entries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "coverage-audit",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json(); ",
+							"pm.test(\"Verify response body | acknowledged\", function() {",
+							"    pm.expect(jsonData.acknowledged).to.be.true; ",
+							"})",
+							"",
+							"pm.test(\"Verify response code | 200\", function() {",
+							"    pm.expect(responseCode.code).is.to.equal(200);",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"strictSSL": false
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{elastic.user}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{elastic.pass}}",
+							"type": "string"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"index_patterns\": [\"{{elastic.index.prefix}}coverage-audit-*\"],\n\t\"settings\": {\n\t\t\"number_of_shards\": 2,\n\t\t\"number_of_replicas\": 1,\n\t\t\"index.translog.durability\": \"async\",\n\t\t\"index.refresh_interval\": \"10s\"\n\t},\n\t\"version\": 1,\n\t\"mappings\": {\n\t\t\"properties\": {\n\t\t\t\"url\": {\n\t\t\t\t\"type\": \"text\",\n\t\t\t\t\"fields\": {\n\t\t\t\t\t\"raw\": {\n\t\t\t\t\t\t\"type\": \"keyword\"\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t},\n\t\t\t\"total\": {\n\t\t\t\t\"type\": \"long\"\n\t\t\t},\n\t\t\t\"unused\": {\n\t\t\t\t\"type\": \"long\"\n\t\t\t},\n\t\t\t\"percentUnused\": {\n\t\t\t\t\"type\": \"short\"\n\t\t\t},\n\t\t\t\"labels\": {\n\t\t\t\t\"type\": \"text\",\n\t\t\t\t\"fields\": {\n\t\t\t\t\t\"raw\": {\n\t\t\t\t\t\t\"type\": \"keyword\"\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t},\n\t\t\t\"spec\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"testStep\": {\n\t\t\t\t\"type\": \"text\",\n\t\t\t\t\"fields\": {\n\t\t\t\t\t\"raw\": {\n\t\t\t\t\t\t\"type\": \"keyword\"\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t},\n\t\t\t\"timestamp\": {\n\t\t\t\t\"type\": \"date\",\n\t\t\t\t\"format\": \"dateOptionalTime\"\n\t\t\t},\n\t\t\t\"uuidAction\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t},\n\t\t\t\"uuid\": {\n\t\t\t\t\"type\": \"keyword\"\n\t\t\t}\n\t\t}\n\t}\n}"
+				},
+				"url": {
+					"raw": "{{elastic.endpoint}}:{{elastic.port}}/_template/{{elastic.index.prefix}}coverage-audit",
+					"host": [
+						"{{elastic.endpoint}}"
+					],
+					"port": "{{elastic.port}}",
+					"path": [
+						"_template",
+						"{{elastic.index.prefix}}coverage-audit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Kibana upload index patterns",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json(); ",
+							"pm.test(\"Verify response body | success\", function() {",
+							"    pm.expect(jsonData.success).to.be.true; ",
+							"})",
+							"",
+							"pm.test(\"Verify response code | 200\", function() {",
+							"    pm.expect(responseCode.code).is.to.equal(200);",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"strictSSL": false
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{kibana.pass}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{kibana.user}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "kbn-xsrf",
+						"value": "true",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/etc/postman/7.17.1/index-patterns.ndjson"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{kibana.endpoint}}:{{kibana.port}}/api/saved_objects/_import?overwrite=true",
+					"host": [
+						"{{kibana.endpoint}}"
+					],
+					"port": "{{kibana.port}}",
+					"path": [
+						"api",
+						"saved_objects",
+						"_import"
+					],
+					"query": [
+						{
+							"key": "overwrite",
+							"value": "true",
+							"description": "(Optional, boolean) Overwrites saved objects when they already exist. When used, potential conflict errors are automatically resolved by overwriting the destination object."
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Kibana upload visualizations",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json(); ",
+							"pm.test(\"Verify response body | success\", function() {",
+							"    pm.expect(jsonData.success).to.be.true; ",
+							"})",
+							"",
+							"pm.test(\"Verify response code | 200\", function() {",
+							"    pm.expect(responseCode.code).is.to.equal(200);",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"strictSSL": false,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{kibana.pass}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{kibana.user}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "kbn-xsrf",
+						"type": "text",
+						"value": "true"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/etc/postman/7.17.1/visualizations.ndjson"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{kibana.endpoint}}:{{kibana.port}}/api/saved_objects/_import?overwrite=true",
+					"host": [
+						"{{kibana.endpoint}}"
+					],
+					"port": "{{kibana.port}}",
+					"path": [
+						"api",
+						"saved_objects",
+						"_import"
+					],
+					"query": [
+						{
+							"key": "overwrite",
+							"value": "true",
+							"description": "(Optional, boolean) Overwrites saved objects when they already exist. When used, potential conflict errors are automatically resolved by overwriting the destination object."
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Kibana upload dashboards",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json(); ",
+							"pm.test(\"Verify response body | success\", function() {",
+							"    pm.expect(jsonData.success).to.be.true; ",
+							"})",
+							"",
+							"pm.test(\"Verify response code | 200\", function() {",
+							"    pm.expect(responseCode.code).is.to.equal(200);",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"strictSSL": false
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{kibana.pass}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{kibana.user}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "kbn-xsrf",
+						"type": "text",
+						"value": "true"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/etc/postman/7.17.1/dashboards.ndjson"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{kibana.endpoint}}:{{kibana.port}}/api/saved_objects/_import?overwrite=true",
+					"host": [
+						"{{kibana.endpoint}}"
+					],
+					"port": "{{kibana.port}}",
+					"path": [
+						"api",
+						"saved_objects",
+						"_import"
+					],
+					"query": [
+						{
+							"key": "overwrite",
+							"value": "true",
+							"description": "(Optional, boolean) Overwrites saved objects when they already exist. When used, potential conflict errors are automatically resolved by overwriting the destination object."
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Kibana upload search",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json(); ",
+							"pm.test(\"Verify response body | success\", function() {",
+							"    pm.expect(jsonData.success).to.be.true; ",
+							"})",
+							"",
+							"pm.test(\"Verify response code | 200\", function() {",
+							"    pm.expect(responseCode.code).is.to.equal(200);",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"strictSSL": false
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{kibana.pass}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{kibana.user}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "kbn-xsrf",
+						"type": "text",
+						"value": "true"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/etc/postman/7.17.1/searchs.ndjson"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{kibana.endpoint}}:{{kibana.port}}/api/saved_objects/_import?overwrite=true",
+					"host": [
+						"{{kibana.endpoint}}"
+					],
+					"port": "{{kibana.port}}",
+					"path": [
+						"api",
+						"saved_objects",
+						"_import"
+					],
+					"query": [
+						{
+							"key": "overwrite",
+							"value": "true",
+							"description": "(Optional, boolean) Overwrites saved objects when they already exist. When used, potential conflict errors are automatically resolved by overwriting the destination object."
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
