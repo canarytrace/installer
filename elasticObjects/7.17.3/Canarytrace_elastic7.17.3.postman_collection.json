@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "63820a79-22c4-4ab4-8faf-4439cf1cec86",
-		"name": "Canarytrace_elastic7.17.1",
+		"name": "Canarytrace_elastic7.17.3",
 		"description": "Setup requests for Elasticsearch and Kibana",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -345,7 +345,7 @@
 						{
 							"key": "file",
 							"type": "file",
-							"src": "/etc/postman/7.17.1/index-patterns.ndjson"
+							"src": "/etc/postman/7.17.3/index-patterns.ndjson"
 						}
 					]
 				},
@@ -425,7 +425,7 @@
 						{
 							"key": "file",
 							"type": "file",
-							"src": "/etc/postman/7.17.1/visualizations.ndjson"
+							"src": "/etc/postman/7.17.3/visualizations.ndjson"
 						}
 					]
 				},
@@ -510,7 +510,7 @@
 						{
 							"key": "file",
 							"type": "file",
-							"src": "/etc/postman/7.17.1/dashboards.ndjson"
+							"src": "/etc/postman/7.17.3/dashboards.ndjson"
 						}
 					]
 				},
@@ -595,7 +595,7 @@
 						{
 							"key": "file",
 							"type": "file",
-							"src": "/etc/postman/7.17.1/searchs.ndjson"
+							"src": "/etc/postman/7.17.3/searchs.ndjson"
 						}
 					]
 				},

@@ -345,7 +345,7 @@
 						{
 							"key": "file",
 							"type": "file",
-							"src": "/Users/rdpanek/htdocs/canary/installer/elasticObjects/8.2.0/index-patterns.ndjson"
+							"src": "/etc/postman/8.2.0/index-patterns.ndjson"
 						}
 					]
 				},
@@ -425,7 +425,7 @@
 						{
 							"key": "file",
 							"type": "file",
-							"src": "/Users/rdpanek/htdocs/canary/installer/elasticObjects/7.17.1/visualizations.ndjson"
+							"src": "/etc/postman/8.2.0/visualizations.ndjson"
 						}
 					]
 				},
@@ -510,7 +510,7 @@
 						{
 							"key": "file",
 							"type": "file",
-							"src": "/Users/rdpanek/htdocs/canary/installer/elasticObjects/7.17.1/dashboards.ndjson"
+							"src": "/etc/postman/8.2.0/dashboards.ndjson"
 						}
 					]
 				},
@@ -595,7 +595,7 @@
 						{
 							"key": "file",
 							"type": "file",
-							"src": "/Users/rdpanek/htdocs/canary/installer/elasticObjects/7.17.1/searchs.ndjson"
+							"src": "/etc/postman/8.2.0/searchs.ndjson"
 						}
 					]
 				},
