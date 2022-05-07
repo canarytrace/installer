@@ -62,6 +62,18 @@ docker run --name installer --net canary --rm -e ELASTIC_ENDPOINT=http://localho
 
 2). Run `docker-compose up`
 
+## Download Postman collections for manually import
+```bash
+docker run --name installer --rm -it --entrypoint /bin/mv -v $(pwd):/deployments/ quay.io/canarytrace/installer:1.0 /etc/postman /deployments/
+```
+
+and results
+```bash
+ls postman 
+
+# 7.17.3  8.2.0
+```
+
 ## Successfully output
 
 ```bash
