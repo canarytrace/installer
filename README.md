@@ -1,14 +1,14 @@
 # Canarytrace installer
-> This installer prepare Elasticsearch and Kibana for Canarytrace use
+> Installer prepares Elasticsearch and Kibana for interpretation data from Canarytrace.
+> Contains `mappings` for Elasticsearch indices and `index-patterns`, `visualizations`, `dashboards` and `searches` for Kibana.
 
-- For Elasticsearch and Kibana 7.x but recommended version is 7.10
-- Dockerized - the docker image tag corresponds to the version of the Elasticsearch for which it is intended 
-- Install index patterns
-- Install visualizations
-- Install dashboards
-- Ready for Canarytrace, Canarytrace Smoke Pro
+- Compatible with Elasticsearch and Kibana 7.x and 8.x
+- You can use this installer or import objects manually.
+- Supported versions https://github.com/canarytrace/installer/tree/master/elasticObjects
+- Ready for Canarytrace Pro, Canarytrace for DevOps and Listener
 - Ready for local use
 - Ready for use on elastic.co
+- Installer automatically detect version of your Elasticsearch start the installation.
 
 ## Example with Elasticsearch and Kibana on localhost
 
@@ -19,17 +19,19 @@ docker network create canary
 
 2). Run dockerized Elasticsearch
 ```
-docker run --name elasticsearch --net canary --rm -d -p 9200:9200 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:7.10.0 bin/elasticsearch -Enetwork.host=0.0.0.0
+docker run --name elasticsearch --net canary --rm -d -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e ES_SETTING_XPACK_SECURITY_ENABLED=false -e ES_SETTING_ACTION_DESTRUCTIVE__REQUIRES__NAME=false docker.elastic.co/elasticsearch/elasticsearch:8.2.0 bin/elasticsearch -Enetwork.host=0.0.0.0
+
 ```
 
 3). Run dockerized Kibana 
 ```
-docker run --name kibana --net canary --rm -d -p 5601:5601 docker.elastic.co/kibana/kibana:7.10.0
+docker run --name kibana --net canary --rm -d -p 5601:5601 docker.elastic.co/kibana/kibana:8.2.0
 ```
+and wait until the Kibana is started http://localhost:5601
 
 4). Run Canarytrace installer
 ```
-docker run --name installer --net canary --rm quay.io/canarytrace/installer:7.3
+docker run --name installer --net canary --rm quay.io/canarytrace/installer:1.0
 ```
 
 **Always use the latest docker images**
@@ -54,39 +56,123 @@ docker run --name installer --net canary --rm -e ELASTIC_ENDPOINT=http://localho
 - `-e KIBANA_USER=elastic`
 - `-e KIBANA_PASS=@josePh8`
 
-## Example with docker-compose and elastic.co
-> docker-compose contains configuration for prepare Elasticsearch and Kibana on elastic.
+## Example with Docker Compose
 
-1). Open `docker-compose.yml` and set correct credentials and endpoints your Elasticsearch deployment on [elastic.co](elastic.co)
+1). Open `docker-compose.yml` and set correct credentials and endpoints your Elasticsearch deployment
 
 2). Run `docker-compose up`
 
+## Successfully output
 
-## Build custom docker image
+```bash
+# docker run --name installer --net canary --rm quay.io/canarytrace/installer:1.0
 
-### Prepare
+Canarytrace installer
+=====================
 
-1). Change part of local URI in exportet postman collection on `/etc/postman`
+Documentation: https://canarytrace.com/docs/
+Discussions: https://github.com/canarytrace/documentation/discussions
 
-2). Build image `docker build -t quay.io/canarytrace/installer:7.3 .`
+Steps
+=====
 
-## Build k8s on DigitalOcean via Terraform
-> edit this file `/digitalocean/k8s.tf`
+1). Check environment variables
+2). Check version of Elasticsearch
+3). Install index patterns to your elasticsearch cluster
+4). Install visualizations to your kibana
+5). Install dashboards to your kibana
 
-1). rename name of `name`
+Available Elasticsearch objects
+===============================
+7.17.3
+8.2.0
 
-2). `terraform init`
+Parameters
+==========
 
-3). `terraform apply`
+ELASTIC_ENDPOINT     | elasticsearch
+ELASTIC_PORT         | 9200
+ELASTIC_INDEX_PREFIX | c.
+ELASTIC_USER         | 
+ELASTIC_PASS         | 
+KIBANA_ENDPOINT      | kibana
+KIBANA_PORT          | 5601
+KIBANA_USER          | 
+KIBANA_PASS          | 
 
-# Troubleshooting
+Elasticsearch availability check
+================================
 
-## Problem with create k8s cluster on DigitalOcean 
+waiting .
+Elasticsearch elasticsearch:9200 is available.
 
-**Problem with authorization / 401 Unable to authenticate you**
-- set correct DO token `export DIGITALOCEAN_TOKEN=token`
+Check Elasticsearch version
+===========================
+8.2.0
+We will install settings for version  8.2.0
 
-- DO authorization `doctl auth init -t token`
 
-**422 validation error: invalid version slug**
-- run `doctl kubernetes options versions` and verify `version` label in `/digitalocean/k8s.tf` 
+newman
+
+Canarytrace_elastic8.2.0
+
+→ report
+  PUT elasticsearch:9200/_template/c.report [200 OK, 325B, 564ms]
+  ✓  Verify response body | acknowledged
+  ✓  Verify response code | 200
+
+→ request-log
+  PUT elasticsearch:9200/_template/c.request-log [200 OK, 325B, 45ms]
+  ✓  Verify response body | acknowledged
+  ✓  Verify response code | 200
+
+→ performance-entries
+  PUT elasticsearch:9200/_template/c.performance-entries [200 OK, 325B, 34ms]
+  ✓  Verify response body | acknowledged
+  ✓  Verify response code | 200
+
+→ coverage-audit
+  PUT elasticsearch:9200/_template/c.coverage-audit [200 OK, 325B, 41ms]
+  ✓  Verify response body | acknowledged
+  ✓  Verify response code | 200
+
+→ Kibana upload index patterns
+  POST kibana:5601/api/saved_objects/_import?overwrite=true [200 OK, 2.14kB, 546ms]
+  ✓  Verify response body | success
+  ✓  Verify response code | 200
+
+→ Kibana upload visualizations
+  POST kibana:5601/api/saved_objects/_import?overwrite=true [200 OK, 8.61kB, 777ms]
+  ✓  Verify response body | success
+  ✓  Verify response code | 200
+
+→ Kibana upload dashboards
+  POST kibana:5601/api/saved_objects/_import?overwrite=true [200 OK, 1.23kB, 763ms]
+  ✓  Verify response body | success
+  ✓  Verify response code | 200
+
+→ Kibana upload search
+  POST kibana:5601/api/saved_objects/_import?overwrite=true [200 OK, 636B, 799ms]
+  ✓  Verify response body | success
+  ✓  Verify response code | 200
+
+┌─────────────────────────┬────────────────────┬────────────────────┐
+│                         │           executed │             failed │
+├─────────────────────────┼────────────────────┼────────────────────┤
+│              iterations │                  1 │                  0 │
+├─────────────────────────┼────────────────────┼────────────────────┤
+│                requests │                  8 │                  0 │
+├─────────────────────────┼────────────────────┼────────────────────┤
+│            test-scripts │                 16 │                  0 │
+├─────────────────────────┼────────────────────┼────────────────────┤
+│      prerequest-scripts │                  8 │                  0 │
+├─────────────────────────┼────────────────────┼────────────────────┤
+│              assertions │                 16 │                  0 │
+├─────────────────────────┴────────────────────┴────────────────────┤
+│ total run duration: 6.1s                                          │
+├───────────────────────────────────────────────────────────────────┤
+│ total data received: 11.02kB (approx)                             │
+├───────────────────────────────────────────────────────────────────┤
+│ average response time: 446ms [min: 34ms, max: 799ms, s.d.: 326ms] │
+└───────────────────────────────────────────────────────────────────┘
+```

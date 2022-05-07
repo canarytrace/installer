@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: canarytrace-installer
+  namespace: canarytrace
+spec:
+  containers:
+  - name: installer
+    image: quay.io/canarytrace/installer:1.0
+    env:
+    - name: ELASTIC_ENDPOINT
+      value: "opendistro-es-client-service.default.svc.cluster.local"
+    - name: ELASTIC_PORTT
+      value: "9200"
+    - name: ELASTIC_INDEX_PREFIX
+      value: "c"
+    - name: KIBANA_ENDPOINT
+      value: "opendistro-es-kibana-svc.default.svc.cluster.local"
+    - name: KIBANA_PORT
+      value: "5601"
