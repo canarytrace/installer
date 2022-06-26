@@ -85,7 +85,7 @@ echo $ELASTIC_VERSION
 
 run_installation () {
     newman run \
-    "/etc/postman/${ELASTIC_VERSION}/Canarytrace_elastic${ELASTIC_VERSION}.postman_collection.json" \
+    "/etc/postman/$1/Canarytrace_elastic$1.postman_collection.json" \
     --env-var "elastic.endpoint=${ELASTIC_ENDPOINT}" \
     --env-var "elastic.port=${ELASTIC_PORT}" \
     --env-var "elastic.index.prefix=${ELASTIC_INDEX_PREFIX}" \
@@ -104,14 +104,14 @@ then
     echo "We will install settings for version " $VERSION
     echo
     echo
-    run_installation
+    run_installation $VERSION
 elif [ "${ELASTIC_VERSION:0:1}" -eq 8 ] ;
 then
     VERSION="8.2.0"
     echo "We will install settings for version " $VERSION
     echo
     echo
-    run_installation
+    run_installation $VERSION
 else
   echo "⭕ Sorry, but we don't currently support your version" $ELASTIC_VERSION
   echo "You can download Elasticsearch objects and import them manually via Postman."
