@@ -27,7 +27,7 @@ if [[ -z "${ELASTIC_ENDPOINT}" ]]; then
     export ELASTIC_ENDPOINT=elasticsearch
 fi
 if [[ -z "${ELASTIC_PORT}" ]]; then
-    export ELASTIC_PORT=9200
+    export ELASTIC_PORT=
 fi
 if [[ -z "${ELASTIC_INDEX_PREFIX}" ]]; then
     export ELASTIC_INDEX_PREFIX=c.
@@ -36,7 +36,7 @@ if [[ -z "${KIBANA_ENDPOINT}" ]]; then
     export KIBANA_ENDPOINT=kibana
 fi
 if [[ -z "${KIBANA_PORT}" ]]; then
-    export KIBANA_PORT=5601
+    export KIBANA_PORT=
 fi
 echo "Parameters"
 echo "=========="
